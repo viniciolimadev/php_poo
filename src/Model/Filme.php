@@ -1,27 +1,17 @@
 <?php
-class Filme
+class Filme extends Titulo
 {
-    private array $notas;
-
     public function __construct(
-        public readonly string $nome,
-        public readonly int $anoLancamento,
-        public readonly Genero $genero,
+        string $nome,
+        int $anoLancamento,
+        Genero $genero,
+        public readonly int $duracaoMinutos,
     ) {
-        $this->notas = [];
+        parent::__construct($nome, $anoLancamento, $genero);
     }
 
-    function avalia(float $nota): void
+      public function duracaoEmMinutos(): int
     {
-        $this->notas[] = $nota;
+        return $this->duracaoMinutos;
     }
-
-    function media(): float
-    {
-        $somaNotas = array_sum($this->notas);
-        $quantidadeNotas = count($this->notas);
-
-        return $somaNotas / $quantidadeNotas;
-    }
-
 }
