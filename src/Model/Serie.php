@@ -1,5 +1,8 @@
 <?php
-class Serie extends Titulo
+
+namespace ScreenMatch\Model;
+
+class Serie extends Titulo  
 {
     public function __construct(
         string $nome,
