@@ -1,61 +1,50 @@
-
 <?php
 
 require 'autoload.php';
 
-use ScreenMatch\Model\Filme;
-use ScreenMatch\Model\Genero;
-use ScreenMatch\Model\Serie;
-use ScreenMatch\Model\Episodio;
-use ScreenMatch\Services\CalculadoraDeMaratona;
-use ScreenMatch\Services\ConversorNotaEstrela;
+use ScreenMatch\Modelo\{
+    Filme, Episodio, Serie, Genero
+};
+use ScreenMatch\Calculos\{
+    CalculadoraDeMaratona, ConversorNotaEstrela
+};
 
-
-echo "Bem-vindo(a) ao screen match!\n";
+echo "Bem-vindo(a) ao ScreenMatch\n";
 
 $filme = new Filme(
-    "Top Gun - Maverick",
-    2022,
-    Genero::Acao,
-    130
+    'Thor - Ragnarok',
+    2021,
+    Genero::SuperHeroi,
+    180,
 );
 
 $filme->avalia(10);
-$filme->avalia(8);
-$filme->avalia(7);
-$filme->avalia(5.8);
-$filme->avalia(8);
+$filme->avalia(10);
+$filme->avalia(5);
+$filme->avalia(5);
 
 var_dump($filme);
 
 echo $filme->media() . "\n";
 
-$serie = new Serie(
-    "Breaking Bad",
-    2008,
-    Genero::Drama,
-    5,
-    13,
-    47
-);
+echo $filme->anoLancamento . "\n";
 
-$episodio = new Episodio($serie, 1, "Pilot");
+$serie = new Serie('Lost', 2007, Genero::Drama, 10, 20, 30);
+$episodio = new Episodio($serie, 'Episódio piloto', 1);
 
-$serie->avalia(10);
-$serie->avalia(9.5);
-$serie->avalia(8.7);
+echo $serie->anoLancamento . "\n";
 
-var_dump($serie);
+$serie->avalia(8);
 
 echo $serie->media() . "\n";
 
 $calculadora = new CalculadoraDeMaratona();
-$calculadora->adicionaTitulo($filme);
-$calculadora->adicionaTitulo($serie);
-$duracao = $calculadora->getTempoTotalMinutos();
+$calculadora->inclui($filme);
+$calculadora->inclui($serie);
+$duracao = $calculadora->duracao();
 
-echo "Tempo total da maratona: " . $duracao . " minutos\n";
+echo "Para essa maratona, você precisa de $duracao minutos\n";
 
-$coneversor = new ConversorNotaEstrela();
-echo $coneversor->converte($serie) . " estrelas\n";
-echo $coneversor->converte($filme) . " estrelas\n";
+$conversor = new ConversorNotaEstrela();
+echo $conversor->converte($serie) . "\n";
+echo $conversor->converte($filme) . "\n";

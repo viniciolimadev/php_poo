@@ -17,10 +17,11 @@ function incluidoNoPlano(bool $planoPrime, int $anoLancamento): bool {
 function criaFilme(string $nome, int $anoLancamento, float $nota, string $genero): Filme
 {
     $filme = new Filme();
+
     $filme->nome = $nome;
     $filme->anoLancamento = $anoLancamento;
-    $filme->nota = $nota;
     $filme->genero = $genero;
-    
+    $filme->nota = $nota;
+
     return $filme;
 }
